@@ -2,7 +2,7 @@
  * @Author: 刘林
  * @Date: 2021-11-11 21:12:21
  * @LastEditors: 刘林
- * @LastEditTime: 2021-11-16 13:04:47
+ * @LastEditTime: 2021-11-16 16:54:22
  */
 import React, { useState, useEffect } from 'react';
 import clsx from 'clsx';
@@ -12,10 +12,12 @@ import styles from './index.module.css';
 import Lottie from 'react-lottie';
 import * as animationData from './yoga.json'
 import ReactECharts from 'echarts-for-react';
+import useThemeContext from '@theme/hooks/useTheme';
 // import TypingJs from 'typingjs-js';
 
 export default function Home() {
   const { siteConfig } = useDocusaurusContext();
+  const { isDarkTheme } = useThemeContext();
   const [clientHeight, setclientHeight] = useState('100%');
 
   const getClientHeight = () => {
@@ -24,6 +26,7 @@ export default function Home() {
       setclientHeight(`${height - 60}px`)
     }
   }
+  console.log(isDarkTheme);
 
   useEffect(() => {
     getClientHeight();
@@ -68,7 +71,8 @@ export default function Home() {
     color: colorList[Math.floor(Math.random() * colorListLen)],
     fontSize: fontSizeList[Math.floor(Math.random() * fontSizeListLen)]
   }
-  let bgColor = '#ffffff'
+  // let bgColor = isDarkTheme ? '#18191a' : '#ffffff'
+  let bgColor = 'transparent';
   let canDraggable = false
   const option = {
     backgroundColor: bgColor,

@@ -74,6 +74,10 @@ const config = {
           },
           { to: '/blog', label: '个人博客', position: 'right' },
           { to: '/docs/tools', label: '常用网站', position: 'right' },
+          {
+            type: 'search',
+            position: 'right'
+          }
           // {
           //   href: 'https://github.com/facebook/docusaurus',
           //   label: 'GitHub',

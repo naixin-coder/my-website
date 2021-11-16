@@ -1,0 +1,342 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <id>https://your-docusaurus-test-site.com/blog</id>
+    <title>墨痕 Blog</title>
+    <updated>2020-12-19T00:00:00.000Z</updated>
+    <generator>https://github.com/jpmonette/feed</generator>
+    <link rel="alternate" href="https://your-docusaurus-test-site.com/blog"/>
+    <subtitle>墨痕 Blog</subtitle>
+    <icon>https://your-docusaurus-test-site.com/img/coderDD.jpg</icon>
+    <entry>
+        <title type="html"><![CDATA[给自己定个小目标]]></title>
+        <id>2020年12月19</id>
+        <link href="https://your-docusaurus-test-site.com/blog/2020年12月19"/>
+        <updated>2020-12-19T00:00:00.000Z</updated>
+        <summary type="html"><![CDATA[新的一年即将到来，这一年学会了很多东西，但是始终感觉自己的基础不是很好，所以决定硬肯基本基础的书籍，争取2020年结束，开启新的篇章。]]></summary>
+        <content type="html"><![CDATA[<p>新的一年即将到来，这一年学会了很多东西，但是始终感觉自己的基础不是很好，所以决定硬肯基本基础的书籍，争取2020年结束，开启新的篇章。
+一位前辈说过，做事贵在坚持，只要把一件事情坚持做下去，一定会有所建树。从下周一开始，每天早晨5点起床，10点睡觉，看书一小时，增加自己的阅读量，然后记下随记，总结写出心得。</p><h3>加油  加油！！</h3>]]></content>
+        <author>
+            <name>星桦</name>
+            <uri>https://github.com/coder-liulin</uri>
+        </author>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[实现一个初级脚手架（corki-cli）]]></title>
+        <id>cli</id>
+        <link href="https://your-docusaurus-test-site.com/blog/cli"/>
+        <updated>2020-03-20T00:00:00.000Z</updated>
+        <summary type="html"><![CDATA[<!--]]></summary>
+        <content type="html"><![CDATA[<p>我们通常会使用脚手架中指定的命令对项目进行创建，开发，调试等，比如vue-cli,create-react-app,umi等都是我们经常使用的脚手架。
+有的时候一些脚手架不能满足我们自己的需求时，就需要定制我们自己开发的脚手架工具。</p><h2>corki-cli</h2><p>实现一个基本的脚手架工具，corki(英雄联盟-英勇投弹手名称)</p><h2>初始化cli项目</h2><p>使用npm进行初始化项目,先创建一个目录 <strong><em>corki-cli</em></strong> ,然后执行一下命令</p><pre><code>npm init -y
+</code></pre><p>我们会看到在corki-cli目录下生成了一个package.json文件</p><pre><code>// package.json
+
+{
+  &quot;name&quot;: &quot;corki-cli&quot;,  // 项目名称
+  &quot;version&quot;: &quot;1.0.0&quot;,  // 项目版本号
+  &quot;description&quot;: &quot;&quot;,  // 项目描述
+  &quot;main&quot;: &quot;index.js&quot;  // 指定项目的入口文件
+  &quot;scripts&quot;: {  // 通过npm可以执行的脚本命令
+    &quot;test&quot;: &quot;echo \&quot;Error: no test specified\&quot; &amp;&amp; exit 1&quot;
+  },
+  &quot;keywords&quot;: [], 
+  &quot;author&quot;: &quot;&quot;, // 作者
+  &quot;license&quot;: &quot;ISC&quot;,
+}
+</code></pre><p>然后在corki-cli目录中创建bin目录，在bin目录中创建一个corki.js（可随意命名）用于定制脚手架的源代码，然后在package.json中添加一段代码</p><pre><code>  &quot;bin&quot;: {
+    &quot;corki&quot;: &quot;bin/corki.js&quot;
+  }
+</code></pre><p>编辑corki.js顶部新增代码如下</p><pre><code>#! /usr/bin/env node 
+
+// 表示corki.js使用的是node环境进行编译
+
+</code></pre><h2>commander</h2><p>通过使用<a href="https://github.com/tj/commander.js">commander.js</a>进行命令式提示或者执行指定操作方式。</p><h4>安装commander.js</h4><pre><code>npm install commander
+</code></pre><p>编辑corki.js</p><pre><code>#! /usr/bin/env node 
+
+// 表示corki.js使用的是node环境进行编译
+
+// corki.js
+
+const commander = require(&#x27;commander&#x27;);
+
+commander
+    .version(`${version}`, &#x27;-v,--verison&#x27;)
+
+
+// corki init 项目名称
+commander
+    .command(`init &lt;project-name&gt;`)
+    .description(`初始化模板项目项目`)
+    .action((projectName) =&gt; {
+       console.log(projectName)
+    })
+
+// corki list
+commander
+    .command(`list`)
+    .description(`列成所有可用的模板`)
+    .action(() =&gt; {
+        console.log(`模板列表`)
+    })
+
+// 指定node规则
+commander.parse(process.argv);
+
+</code></pre><p>在corki-cli目录中执行npm link进行npm连接，然后我们在任何地方就可以使用corki(即package.json中bin中指定的命令)
+执行corki，可以得到下面的结果</p><pre><code>Usage: corki [options] [command]
+
+Options:
+  -v,--verison         output the version number
+  -h, --help           display help for command
+
+Commands:
+  init &lt;project-name&gt;  初始化模板项目项目
+  list                 列成所有可用的模板
+  help [command]       display help for command
+</code></pre><h2>inquirer.js</h2><p>我们可以通过使用<a href="https://github.com/SBoudrias/Inquirer.js">inquirer.js</a>进行交互式的操作方式</p><h4>安装inquirer.js</h4><pre><code>npm install inquirer
+</code></pre><h4>使用inquirer.js</h4><p>编辑corki.js</p><pre><code>#! /usr/bin/env node 
+
+// 表示corki.js使用的是node环境进行编译
+
+// corki.js
+
+const commander = require(&#x27;commander&#x27;);
+const inquirer = require(&#x27;inquirer&#x27;);
+
+commander
+    .version(`${version}`, &#x27;-v,--verison&#x27;)
+
+
+// corki init 项目名称
+commander
+    .command(`init &lt;project-name&gt;`)
+    .description(`初始化模板项目项目`)
+    .action((projectName) =&gt; {
+       inquirer.prompt([
+            {
+                type: &#x27;input&#x27;,
+                name: &#x27;name&#x27;,
+                default: projectName,
+                message: &#x27;your project name&#x27;
+            },
+            {
+                type: &#x27;input&#x27;,
+                name: &#x27;description&#x27;,
+                message: &#x27;describe project&#x27;
+            },
+            {
+                type: &#x27;input&#x27;,
+                name: &#x27;author&#x27;,
+                message: &#x27;author name&#x27;
+            },
+            {
+                type: &#x27;list&#x27;,
+                name: &#x27;templateName&#x27;,
+                message: &#x27;choose your project template&#x27;,
+                choices: [&#x27;light&#x27;, &#x27;reduction&#x27;]
+            }
+        ]).then((answer) =&gt; {
+            console.log(answer)
+        })
+    })
+
+// corki list
+commander
+    .command(`list`)
+    .description(`列成所有可用的模板`)
+    .action(() =&gt; {
+        console.log(`模板列表`)
+    })
+
+// 指定node规则
+commander.parse(process.argv);
+</code></pre><p>正在执行corki init test 后可以看到以下结果</p><pre><code>? your project name test
+? describe project 
+? author name 
+? choose your project template (Use arrow keys)
+❯ light 
+  reduction 
+</code></pre><h2>download-git-repo</h2><p>通过使用download-git-repo可以用个将git中的项目模板拉取到本地，进行代码的二次开发</p><h4>安装 download-git-repo</h4><pre><code>npm install download-git-repo
+</code></pre><h4>使用download-git-repo</h4><pre><code>#! /usr/bin/env node 
+
+// 表示corki.js使用的是node环境进行编译
+
+// corki.js
+
+const commander = require(&#x27;commander&#x27;);
+const inquirer = require(&#x27;inquirer&#x27;);
+const download = require(&#x27;download-git-repo&#x27;);
+
+
+template = {
+    light: {
+        url: `https://github.com/coder-liulin/cli-tep.git`,
+        description: &#x27;light theme template&#x27;,
+        downloadUrl: `https://github.com:coder-liulin/cli-tep#master`,
+    },
+    reduction: {
+        url: `https://github.com/reduction-admin/react-reduction.git`,
+        description: &#x27;reduction theme template&#x27;,
+        downloadUrl: `https://github.com:reduction-admin/react-reduction#master`,
+    }
+}
+
+commander
+    .version(`${version}`, &#x27;-v,--verison&#x27;)
+
+
+// corki init 项目名称
+commander
+    .command(`init &lt;project-name&gt;`)
+    .description(`初始化模板项目项目`)
+    .action((projectName) =&gt; {
+       inquirer.prompt([
+            {
+                type: &#x27;input&#x27;,
+                name: &#x27;name&#x27;,
+                default: projectName,
+                message: &#x27;your project name&#x27;
+            },
+            {
+                type: &#x27;input&#x27;,
+                name: &#x27;description&#x27;,
+                message: &#x27;describe project&#x27;
+            },
+            {
+                type: &#x27;input&#x27;,
+                name: &#x27;author&#x27;,
+                message: &#x27;author name&#x27;
+            },
+            {
+                type: &#x27;list&#x27;,
+                name: &#x27;templateName&#x27;,
+                message: &#x27;choose your project template&#x27;,
+                choices: [&#x27;light&#x27;, &#x27;reduction&#x27;]
+            }
+        ]).then((answer) =&gt; {
+             const { downloadUrl } = template[answer[&#x27;templateName&#x27;]];
+                download(downloadUrl, projectName, { clone: true }, (err) =&gt; {
+                if (err) {
+                    console.log(&#x27;project init failed&#x27;)
+                    return;
+                }
+              
+                console.log(&#x27;project init success&#x27;);
+            })
+        })
+    })
+
+// corki list
+commander
+    .command(`list`)
+    .description(`列成所有可用的模板`)
+    .action(() =&gt; {
+        console.log(`模板列表`)
+    })
+
+// 指定node规则
+commander.parse(process.argv);
+</code></pre><h2>ora chalk log-symbols 进行交互式装饰</h2><ul><li>使用ora进行下载时加载效果</li><li>使用chalk进行文字提示</li><li>使用log-symbols进行交互提示</li></ul><h4>安装 ora chalk log-symbols</h4><pre><code>npm install ora chalk log-symbols
+</code></pre><h4>使用 ora chalk log-symbols</h4><pre><code>#! /usr/bin/env node 
+
+// 表示corki.js使用的是node环境进行编译
+
+// corki.js
+
+const commander = require(&#x27;commander&#x27;);
+const inquirer = require(&#x27;inquirer&#x27;);
+const download = require(&#x27;download-git-repo&#x27;);
+const ora = require(&#x27;ora&#x27;);
+const chalk = require(&#x27;chalk&#x27;);
+const logSymbols = require(&#x27;log-symbols&#x27;);
+
+
+template = {
+    light: {
+        url: `https://github.com/coder-liulin/cli-tep.git`,
+        description: &#x27;light theme template&#x27;,
+        downloadUrl: `https://github.com:coder-liulin/cli-tep#master`,
+    },
+    reduction: {
+        url: `https://github.com/reduction-admin/react-reduction.git`,
+        description: &#x27;reduction theme template&#x27;,
+        downloadUrl: `https://github.com:reduction-admin/react-reduction#master`,
+    }
+}
+
+commander
+    .version(`${version}`, &#x27;-v,--verison&#x27;)
+
+
+// corki init 项目名称
+commander
+    .command(`init &lt;project-name&gt;`)
+    .description(`初始化模板项目项目`)
+    .action((projectName) =&gt; {
+       inquirer.prompt([
+            {
+                type: &#x27;input&#x27;,
+                name: &#x27;name&#x27;,
+                default: projectName,
+                message: &#x27;your project name&#x27;
+            },
+            {
+                type: &#x27;input&#x27;,
+                name: &#x27;description&#x27;,
+                message: &#x27;describe project&#x27;
+            },
+            {
+                type: &#x27;input&#x27;,
+                name: &#x27;author&#x27;,
+                message: &#x27;author name&#x27;
+            },
+            {
+                type: &#x27;list&#x27;,
+                name: &#x27;templateName&#x27;,
+                message: &#x27;choose your project template&#x27;,
+                choices: [&#x27;light&#x27;, &#x27;reduction&#x27;]
+            }
+        ]).then((answer) =&gt; {
+            const { downloadUrl } = template[answer[&#x27;templateName&#x27;]];
+            spinner.start()
+            download(downloadUrl, projectName, { clone: true }, (err) =&gt; {
+                if (err) {
+                    spinner.fail();
+                    console.log(logSymbols.erro, chalk.red(&#x27;下载失败&#x27;));
+                    return;
+                }
+                spinner.succeed();
+                console.log(logSymbols.success, chalk.greenBright(&#x27;project init success&#x27;));
+            })
+            })
+        })
+    })
+
+// corki list
+commander
+    .command(`list`)
+    .description(`列成所有可用的模板`)
+    .action(() =&gt; {
+        console.log(`模板列表`)
+    })
+
+// 指定node规则
+commander.parse(process.argv);
+</code></pre><h2>结语</h2><p>这样我们就完成了一个初级的脚手架开发，我们可以通过注册npm账号，将我们的脚手架上传至npm仓库后，就可以通过npm install -g corki-cli 就可以全局使用我们的脚手架了，另外我们也可以通过其他插件来更加完善我们的脚手架。</p>]]></content>
+        <author>
+            <name>星桦</name>
+            <uri>https://github.com/coder-liulin</uri>
+        </author>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[第一个博客]]></title>
+        <id>first</id>
+        <link href="https://your-docusaurus-test-site.com/blog/first"/>
+        <updated>2020-03-12T00:00:00.000Z</updated>
+        <summary type="html"><![CDATA[<!--]]></summary>
+        <content type="html"><![CDATA[<p>这是我第一个博客，请多多关照</p><p>哈哈哈</p>]]></content>
+        <author>
+            <name>星桦</name>
+            <uri>https://github.com/coder-liulin</uri>
+        </author>
+    </entry>
+</feed>
