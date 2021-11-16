@@ -3,6 +3,7 @@
 
 # Production
 /build
+/blog-webapp
 
 # Generated files
 .docusaurus
