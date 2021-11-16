@@ -2,7 +2,7 @@
  * @Author: 刘林
  * @Date: 2021-11-11 21:12:21
  * @LastEditors: 刘林
- * @LastEditTime: 2021-11-15 19:28:58
+ * @LastEditTime: 2021-11-16 13:55:37
  */
 /**
  * Creating a sidebar enables you to:
@@ -36,28 +36,58 @@ const sidebars = {
     },
   ],
    */
-  docs: {
-    JS: [
-      'js/doc1',
-      {
-        type: 'category',
-        label: 'JavaScript设计模式',
-        items: [
-          'js/javascript-design-patterns/js-javascript-design-patterns-2-2',
-          'js/javascript-design-patterns/js-javascript-design-patterns-2-3',
-          'js/javascript-design-patterns/js-javascript-design-patterns-2-4',
-          'js/javascript-design-patterns/js-javascript-design-patterns-3-1',
-          'js/javascript-design-patterns/js-javascript-design-patterns-3-2',
-          'js/javascript-design-patterns/js-javascript-design-patterns-3-3',
-          'js/javascript-design-patterns/js-javascript-design-patterns-3-4',
-          'js/javascript-design-patterns/js-javascript-design-patterns-3-5',
-        ],
-      },
-    ],
-    React: reactRoutes,
-    CSS: cssRoutes,
-    // Flutter: ['doc3'],
-  },
+  // docs: {
+  //   JS: [
+  //     'js/doc1',
+  //     {
+  //       type: 'category',
+  //       label: 'JavaScript设计模式',
+  //       items: [
+  //         'js/javascript-design-patterns/js-javascript-design-patterns-2-2',
+  //         'js/javascript-design-patterns/js-javascript-design-patterns-2-3',
+  //         'js/javascript-design-patterns/js-javascript-design-patterns-2-4',
+  //         'js/javascript-design-patterns/js-javascript-design-patterns-3-1',
+  //         'js/javascript-design-patterns/js-javascript-design-patterns-3-2',
+  //         'js/javascript-design-patterns/js-javascript-design-patterns-3-3',
+  //         'js/javascript-design-patterns/js-javascript-design-patterns-3-4',
+  //         'js/javascript-design-patterns/js-javascript-design-patterns-3-5',
+  //       ],
+  //     },
+  //   ],
+  //   React: reactRoutes,
+  //   CSS: cssRoutes,
+  //   // Flutter: ['doc3'],
+  // },
+  flutter: [
+    "flutter/flutter-intro"
+  ],
+  css: [
+    "css/css-intro"
+  ],
+  js: [
+    "js/js-intro",
+    {
+      type: 'category',
+      label: 'JavaScript设计模式',
+      items: [
+        'js/javascript-design-patterns/js-javascript-design-patterns-2-2',
+        'js/javascript-design-patterns/js-javascript-design-patterns-2-3',
+        'js/javascript-design-patterns/js-javascript-design-patterns-2-4',
+        'js/javascript-design-patterns/js-javascript-design-patterns-3-1',
+        'js/javascript-design-patterns/js-javascript-design-patterns-3-2',
+        'js/javascript-design-patterns/js-javascript-design-patterns-3-3',
+        'js/javascript-design-patterns/js-javascript-design-patterns-3-4',
+        'js/javascript-design-patterns/js-javascript-design-patterns-3-5',
+      ],
+    },
+    {
+      type: 'category',
+      label: 'React',
+      items: [
+        'react/react-intro'
+      ],
+    }
+  ],
   tools: {
     简介: ["tools/tools-intro"],
   },

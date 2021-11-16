@@ -2,61 +2,43 @@
  * @Author: 刘林
  * @Date: 2021-11-11 21:12:21
  * @LastEditors: 刘林
- * @LastEditTime: 2021-11-15 17:59:41
+ * @LastEditTime: 2021-11-16 13:04:47
  */
 import React, { useState, useEffect } from 'react';
 import clsx from 'clsx';
 import Layout from '@theme/Layout';
-import Link from '@docusaurus/Link';
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import styles from './index.module.css';
 import Lottie from 'react-lottie';
 import * as animationData from './yoga.json'
 import ReactECharts from 'echarts-for-react';
-import TypingJs from 'typingjs-js';
-
-function HomepageHeader() {
-  const { siteConfig } = useDocusaurusContext();
-  return (
-    <header className={clsx('hero hero--primary', styles.heroBanner)}>
-      <div className="container">
-        <h1 className="hero__title">{siteConfig.title}</h1>
-        <p className="hero__subtitle">{siteConfig.tagline}</p>
-        <div className={styles.buttons}>
-          <Link
-            className="button button--secondary button--lg"
-            to="/docs/intro">
-            Docusaurus Tutorial - 5min ⏱️
-          </Link>
-        </div>
-      </div>
-    </header>
-  );
-}
+// import TypingJs from 'typingjs-js';
 
 export default function Home() {
   const { siteConfig } = useDocusaurusContext();
   const [clientHeight, setclientHeight] = useState('100%');
 
   const getClientHeight = () => {
-    const height = document.body.clientHeight;
-    setclientHeight(`${height - 60}px`)
+    if (window && document) {
+      const height = document.body.clientHeight;
+      setclientHeight(`${height - 60}px`)
+    }
   }
 
   useEffect(() => {
     getClientHeight();
-    const typing1 = new TypingJs({
-      selector: 'typingjs1',
-      message: ' 曾经我的是一个我是一个JAVA程序员,面对的是冰冷的数据，世界毫无色彩,'
-    });
-    typing1.init();
-    setTimeout(() => {
-      const typing2 = new TypingJs({
-        selector: 'typingjs2',
-        message: '现在的我想用前端的色彩绘画出五彩斑斓的天空!!'
-      });
-      typing2.init();
-    }, 4000)
+    // const typing1 = new TypingJs({
+    //   selector: 'typingjs1',
+    //   message: ' 曾经我的是一个我是一个JAVA程序员,面对的是冰冷的数据，世界毫无色彩,'
+    // });
+    // typing1.init();
+    // setTimeout(() => {
+    //   const typing2 = new TypingJs({
+    //     selector: 'typingjs2',
+    //     message: '现在的我想用前端的色彩绘画出五彩斑斓的天空!!'
+    //   });
+    //   typing2.init();
+    // }, 4000)
   }, [])
 
   const defaultOptions = {
@@ -365,9 +347,10 @@ export default function Home() {
           <h2 style={{ marginTop: 30 }}>修仙时间：5年</h2>
           <article>
             <section id="typingjs1">
+              曾经我的是一个我是一个JAVA程序员,面对的是冰冷的数据，世界毫无色彩,
             </section>
             <section id="typingjs2">
-              {/* 现在的我想用前端的色彩绘画出五彩斑斓的天空!! */}
+              现在的我想用前端的色彩绘画出五彩斑斓的天空!!
             </section>
           </article>
           <ReactECharts option={option} style={{ marginTop: 20 }} />

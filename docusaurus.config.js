@@ -51,10 +51,26 @@ const config = {
         },
         items: [
           {
-            type: 'doc',
-            docId: 'js/doc1',
-            position: 'right',
+            // type: 'doc',
+            // docId: 'js/js-intro',
+            // position: 'right',
+            // label: '学习日志',
             label: '学习日志',
+            position: 'right',
+            items: [
+              {
+                label: 'JavaScript相关',
+                to: '/docs/js'
+              },
+              {
+                label: 'CSS相关',
+                to: '/docs/css'
+              },
+              {
+                label: 'Flutter相关',
+                to: '/docs/flutter'
+              }
+            ],
           },
           { to: '/blog', label: '个人博客', position: 'right' },
           { to: '/docs/tools', label: '常用网站', position: 'right' },
