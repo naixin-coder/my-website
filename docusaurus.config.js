@@ -59,7 +59,7 @@ const config = {
             position: 'right',
             items: [
               {
-                label: 'JavaScript相关',
+                label: 'JavaScript',
                 to: '/docs/js'
               },
               {
@@ -93,28 +93,28 @@ const config = {
             items: [
               {
                 label: 'React',
-                to: '/docs/intro',
+                to: 'https://react.docschina.org/',
               },
-              // {
-              //   label: 'Vue',
-              //   to: '/docs/intro',
-              // },
-              // {
-              //   label: 'Umi',
-              //   to: '/docs/intro',
-              // },
+              {
+                label: 'Vue',
+                to: 'https://v3.cn.vuejs.org/',
+              },
+              {
+                label: 'Umi',
+                to: 'https://umijs.org/zh-CN',
+              },
             ],
           },
           {
-            title: '相关链接',
+            title: '关于我',
             items: [
               {
                 label: 'GitHub',
-                href: 'https://stackoverflow.com/questions/tagged/docusaurus',
+                href: 'https://github.com/naixin-coder',
               },
               {
                 label: '掘金',
-                href: 'https://discordapp.com/invite/docusaurus',
+                href: 'https://juejin.cn/user/2225067267468462',
               },
               {
                 label: '知乎',
@@ -126,12 +126,8 @@ const config = {
             title: '相关',
             items: [
               {
-                label: 'Ant Design',
-                to: '/blog',
-              },
-              {
-                label: 'GitHub',
-                href: 'https://github.com/facebook/docusaurus',
+                label: 'Docusaurus',
+                href: 'https://www.docusaurus.cn/',
               },
             ],
           },
